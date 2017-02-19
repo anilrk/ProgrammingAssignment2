@@ -1,0 +1,37 @@
+Steps to "Test"
+#Source the matrix
+> source("cachematrix.R")
+#Invoke makeCacheMatrix with matrix and rows & coloums
+> a <- makeCacheMatrix( matrix(c(1,2,3,4), nrow = 2, ncol = 2) );
+#Test the Summary
+> summary(a)
+             Length Class  Mode    
+setMatrix    1      -none- function
+getMatrix    1      -none- function
+cacheInverse 1      -none- function
+getInverse   1      -none- function
+#Test if getMatrix() will return the matrix with values set
+> a$getMatrix()
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+#Check the getInverse() function, it should return NULL as it is not set yet
+> a$getInverse()
+NULL
+#invoke "cacheSolve()" method on the object 'a', this should actually perform the inverse function through "solve()"
+> cacheSolve(a)
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+#invoke again should retrieve the alerady stored data with message "Obtaining the cached data"
+> cacheSolve(a)
+[1] "obtaining the cached data"
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+#invoke the getInverse() now, it should retrive the same data as "cacheSolve()" method was invoked already
+> a$getInverse()
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+> 
